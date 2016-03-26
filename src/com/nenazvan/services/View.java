@@ -5,11 +5,7 @@ import java.util.Scanner;
 /** Class interacts with the user*/
 public class View {
     /** To work with the console*/
-    private Scanner console;
-
-    public View() {
-        console = new Scanner(System.in);
-    }
+    private Scanner console = new Scanner(System.in);
 
     /** Display main options*/
     public void showMainMenu() {
