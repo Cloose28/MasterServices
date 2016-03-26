@@ -25,12 +25,12 @@ public class View {
 
     /** Error message to console*/
     public void printErrorMessage(String message) {
-        System.out.println((char) 27 + "[31m" + message + (char)27 + "[0m");
+        System.out.println((char) 27 + "[31m" + message + (char) 27 + "[0m");
     }
 
     /** Message to console*/
     public void printMessage(String message) {
-        System.out.println((char) 27 + "[32m" + message + (char)27 + "[0m");
+        System.out.println((char) 27 + "[32m" + message + (char) 27 + "[0m");
     }
 
     /** The method displays the order*/
