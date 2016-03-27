@@ -4,55 +4,44 @@ import com.nenazvan.enums.MainMenu;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /** Class connecting view and model*/
 public class Controller {
-    private static final int COUNT_ARGUMENTS_WITHOUT_ORGANIZATION = 18;
-    private static final int COUNT_ARGUMENTS_WITH_ORGANIZATION = 16;
-    private static final String GET_NAME_ORGANIZATIONS = "Enter the name of the organization";
     private static final String WITH_A_CAPITAL_LETTER = " with a capital letter";
+    private static final String YYYY_MM_DD_HH_MM = "(yyyy-MM-dd HH:mm)";
+    private static final String GET_PATRONYMIC = "Enter the patronymic";
     private static final String GET_FIRST_NAME = "Enter the first name";
     private static final String GET_SURNAME = "Enter the surname";
-    private static final String GET_PATRONYMIC = "Enter the patronymic";
-    private static final String YYYY_MM_DD_HH_MM = "(yyyy-MM-dd HH:mm)";
-    private static final String GET_DATE = "Enter the order date " + YYYY_MM_DD_HH_MM;
-    private static final String GET_PRODUCT_NAME = "Enter the product name";
-    private static final String OF_YOU = " of you";
-    private static final String GET_COST = "Enter the cost of product (positive number)";
-    private static final String GET_PHONE_NUMBER = "Enter the phone number (8980...)";
     private static final String OF_MASTER = " of master";
-    private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
+
     /** Variable management console*/
     private View view;
     /** Path to file with orders*/
     private static final String ORDERS_TXT = "orders.txt";
-    /** List of orders*/
-    private List<Order> orderList = new ArrayList<>();
+    /** Model store list of orders*/
+    Model model = new Model();
+    ConsoleIO consoleIO;
 
     public Controller() {
         view = new View();
-        orderList = getListFromFile(ORDERS_TXT);
-
+        getDataFromFile(ORDERS_TXT);
+        consoleIO = new ConsoleIO(view);
     }
 
     /** Reading the start data*/
-    private List<Order> getListFromFile(String fileName) {
+    private void getDataFromFile(String fileName) {
         view.printMessage("Reading the initial data from the file ... please wait ...");
-        List<Order> list = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(new File(fileName));
             while (scanner.hasNextLine()) {
-                list.add(createObjectFromString(scanner.nextLine()));
+                model.addOrder(createObjectFromString(scanner.nextLine()));
             }
             view.printMessage("The initial data is successfully received!");
             scanner.close();
         } catch (FileNotFoundException e) {
             view.printErrorMessage("Can't found the file!");
         }
-        return list;
     }
 
     /** Method create new object from string*/
@@ -107,7 +96,7 @@ public class Controller {
 
     /** The method checks the number of parameters*/
     private boolean checkCountParameters(int length) {
-        return length == COUNT_ARGUMENTS_WITH_ORGANIZATION || length == COUNT_ARGUMENTS_WITHOUT_ORGANIZATION;
+        return length == Order.COUNT_ARGUMENTS_WITH_ORGANIZATION || length == Order.COUNT_ARGUMENTS_WITHOUT_ORGANIZATION;
     }
 
     /** The method of displaying the menu and command processing*/
@@ -126,7 +115,7 @@ public class Controller {
                     getOrdersOfMaster();
                     break;
                 case ACTUAL_ORDERS:
-                    orderList.stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
+                    model.getOrderList().stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
                     break;
                 case EXPIRED_ORDERS:
                     getExpiredOrders();
@@ -142,8 +131,8 @@ public class Controller {
 
     /** Method get all orders that have been expired for the specified time period*/
     private void getExpiredOrders() {
-        LocalDateTime begin = Order.getDateFromText(getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
-        orderList.stream()
+        LocalDateTime begin = Order.getDateFromText(consoleIO.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
+        model.getOrderList().stream()
                 .filter(order -> order.getEstimatedDate().isBefore(begin))
                 .filter(Order::isAction)
                 .forEach(order -> view.printOrder(order));
@@ -153,9 +142,9 @@ public class Controller {
     /** Method searches for all orders specified by the master for a certain period*/
     private void getOrdersOfMaster() {
         String masterName = getMasterName();
-        LocalDateTime begin = Order.getDateFromText(getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
-        LocalDateTime end = Order.getDateFromText(getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
-        orderList.stream()
+        LocalDateTime begin = Order.getDateFromText(consoleIO.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
+        LocalDateTime end = Order.getDateFromText(consoleIO.getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
+        model.getOrderList().stream()
                 .filter((order -> order.getMasterName().equals(masterName)))
                 .filter(order -> order.getOrderDate().isAfter(begin))
                 .filter(order -> order.getEstimatedDate().isBefore(end))
@@ -165,27 +154,9 @@ public class Controller {
 
     /** The method receives the name of the master*/
     private String getMasterName() {
-        String answer = getCorrectString(GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        answer += " " + getCorrectString(GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        answer += " " + getCorrectString(GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        return answer;
-    }
-
-    /** A method returns the correct word*/
-    private String getCorrectString(String question) {
-        String answer;
-        do {
-            answer = view.getChoice(question);
-        } while (!Order.isAValidString(answer));
-        return answer;
-    }
-
-    /** A method returns the correct date*/
-    private String getCorrectDate(String question) {
-        String answer;
-        do {
-            answer = view.getChoice(question);
-        } while (!Order.isAValidDate(answer));
+        String answer = consoleIO.getCorrectString(GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
+        answer += " " + consoleIO.getCorrectString(GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
+        answer += " " + consoleIO.getCorrectString(GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
         return answer;
     }
 
@@ -203,7 +174,7 @@ public class Controller {
     /** The method saves a list of orders*/
     private void saveData() throws IOException {
         BufferedWriter out = new BufferedWriter(new FileWriter(ORDERS_TXT));
-        for (Order order : orderList) {
+        for (Order order : model.getOrderList()) {
             saveOrderInFile(out, order);
         }
         out.close();
@@ -243,7 +214,7 @@ public class Controller {
     private boolean checkAndExecute(String result) {
         try {
             int number = Integer.parseInt(result);
-            if (-1 <= number && number < orderList.size()) {
+            if (-1 <= number && number < model.getOrderList().size()) {
                 executeAction(number);
             } else {
                 return true;
@@ -257,13 +228,13 @@ public class Controller {
     /** The method removes the order, if the number is not -1*/
     private void executeAction(int number) {
         if (number == -1) return;
-        orderList.remove(number);
+        model.removeOrder(number);
     }
 
     /** Display all orders with numbers*/
     private void showListOfOrders() {
-        for (Integer i = 0; i < orderList.size(); i++) {
-            view.printMessage(i.toString() + ") " + orderList.get(i).toString());
+        for (Integer i = 0; i < model.getOrderList().size(); i++) {
+            view.printMessage(i.toString() + ") " + model.getOrderList().get(i).toString());
         }
     }
 
@@ -280,138 +251,7 @@ public class Controller {
 
     /** Method creates a new order through the user*/
     private void addNewOrder() {
-        int count = -1;
-        String[] result;
-        String answer = getAnswerOnBoolean();
-        if (answer.equals("1")) {
-            result = new String[COUNT_ARGUMENTS_WITH_ORGANIZATION];
-            count = addAnswerToResult(count, result, answer);
-            count = getOrganizationName(count, result, GET_NAME_ORGANIZATIONS + WITH_A_CAPITAL_LETTER);
-        } else {
-            result = new String[COUNT_ARGUMENTS_WITHOUT_ORGANIZATION];
-            count = addAnswerToResult(count, result, answer);
-            count = getName(count, result, GET_FIRST_NAME + OF_YOU + WITH_A_CAPITAL_LETTER,
-                    GET_SURNAME + OF_YOU + WITH_A_CAPITAL_LETTER, GET_PATRONYMIC +
-                            OF_YOU + WITH_A_CAPITAL_LETTER);
-        }
-        count = getInfoAboutData(count, result, GET_DATE + " of order", GET_DATE + " of estimate");
-        count = getProductName(count, result);
-        count = getCost(count, result);
-        count = getPhoneNumber(count, result);
-        count = getName(count, result, GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER,
-                GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER,
-                GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        getInfoAboutProduct(count, result, "It is a new product? " + YES_1_OR_0_NO,
-                "It is a repair product? " + YES_1_OR_0_NO,
-                "It is a duplicate product? " + YES_1_OR_0_NO,
-                "It is a search for defects product? " + YES_1_OR_0_NO);
-        Order newOrder = Order.getOrderFromParameters(result);
-        if (addOrder(newOrder)) return;
-        view.printErrorMessage("This order already exists!");
     }
 
-    /** The method adds the order, if such does not yet have*/
-    private boolean addOrder(Order newOrder) {
-        if (!orderList.contains(newOrder)) {
-            orderList.add(newOrder);
-            view.printMessage("The order was successfully added!");
-            return true;
-        }
-        return false;
-    }
 
-    /** The method receives the response in the form of boolean*/
-    private String getAnswerOnBoolean() {
-        String answer;
-        do {
-            answer = view.getChoice("Do you organization? " + YES_1_OR_0_NO);
-        } while (!Order.isAValidBool(answer));
-        return answer;
-    }
-
-    /** The method receives the correct value of the price*/
-    private int getCost(int count, String[] result) {
-        String answer;
-        do {
-            answer = view.getChoice(GET_COST);
-        } while (!Order.isAValidCost(answer));
-        count = addAnswerToResult(count, result, answer);
-        return count;
-    }
-
-    /** The method receives a valid phone number*/
-    private int getPhoneNumber(int count, String[] result) {
-        String answer;
-
-        do {
-            answer = view.getChoice(GET_PHONE_NUMBER);
-        } while (!Order.isAValidPhoneNumber(answer));
-        count = addAnswerToResult(count, result, answer);
-        return count;
-    }
-
-    /** Method gets the date*/
-    private int getInfoAboutData(int count, String[] result, String question, String question2) {
-        count = getCorrectData(count, result, question);
-        count = getCorrectData(count, result, question2);
-        return count;
-    }
-
-    /** The method receives the correct value date*/
-    private int getCorrectData(int count, String[] result, String question) {
-        String[] split = getCorrectDate(question).split("\\s+");
-        count = addAnswerToResult(count, result, split[0]);
-        count = addAnswerToResult(count, result, split[1]);
-        return count;
-    }
-
-    /** The method adds the value in the result array*/
-    private int addAnswerToResult(int count, String[] result, String answer) {
-        result[++count] = answer;
-        return count;
-    }
-
-    /** Getting the name of the organization*/
-    private int getOrganizationName(int count, String[] result, String question) {
-        count = getCorrectAnswerString(count, result, question);
-        return count;
-    }
-
-    /** The method receives the name from the user*/
-    private int getName(int count, String[] result, String question, String question2, String question3) {
-        count = getCorrectAnswerString(count, result, question);
-        count = getCorrectAnswerString(count, result, question2);
-        count = getCorrectAnswerString(count, result, question3);
-        return count;
-    }
-
-    /** The method receives the correct word*/
-    private int getCorrectAnswerString(int count, String[] result, String question) {
-        count = addAnswerToResult(count, result, getCorrectString(question));
-        return count;
-    }
-
-    /** The method receives the correct product name*/
-    private int getProductName(int count, String[] result) {
-        count = getCorrectAnswerString(count, result, GET_PRODUCT_NAME + WITH_A_CAPITAL_LETTER);
-        return count;
-    }
-
-    /** The method receives values of type bool from the user*/
-    private void getInfoAboutProduct(int count, String[] result, String question, String question2, String question3, String question4) {
-        count = getCorrectAnswerBool(count, result, question);
-        count = getCorrectAnswerBool(count, result, question2);
-        count = getCorrectAnswerBool(count, result, question3);
-        getCorrectAnswerBool(count, result, question4);
-    }
-
-    /** The method receives the correct Boolean value*/
-    private int getCorrectAnswerBool(int count, String[] result, String question) {
-        String answer;
-        do {
-            answer = view.getChoice(question);
-        } while (!Order.isAValidBool(answer));
-        count = addAnswerToResult(count, result, answer);
-        return count;
-    }
 }

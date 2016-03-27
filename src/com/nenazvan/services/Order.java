@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /** A class stores and processes all order data*/
 class Order {
+    public static final int COUNT_ARGUMENTS_WITHOUT_ORGANIZATION = 18;
+    public static final int COUNT_ARGUMENTS_WITH_ORGANIZATION = 16;
     /** Date and time of order.*/
     private LocalDateTime orderDate;
     /** Date and time calculation.*/
@@ -104,7 +106,7 @@ class Order {
     public static LocalDateTime getDateFromText(String date) {
         try {
             return getLocalDateTime(date);
-        } catch (Exception exception) {
+        } catch (DateTimeException exception) {
             System.out.println("Error parse date!!!");
             throw new IllegalArgumentException(exception.getMessage());
         }
@@ -112,7 +114,7 @@ class Order {
 
     /** Method parse string to date*/
     private static LocalDateTime getLocalDateTime(String date) throws DateTimeException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(date, formatter);
     }
 
