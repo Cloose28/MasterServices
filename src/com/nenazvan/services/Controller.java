@@ -25,6 +25,7 @@ public class Controller {
     private static final String GET_PHONE_NUMBER = "Enter the phone number (8980...)";
     private static final String OF_MASTER = " of master";
     private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
+
     /** Variable management console*/
     private View view;
     /** Path to file with orders*/
