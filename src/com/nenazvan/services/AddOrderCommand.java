@@ -3,7 +3,7 @@ package com.nenazvan.services;
 /**
  * Created by artem on 3/26/16.
  */
-public class AddOrderCommand implements ICommand {
+public class AddOrderCommand implements Command {
     private static final String WITH_A_CAPITAL_LETTER = " with a capital letter";
     private static final String GET_FIRST_NAME = "Enter the first name";
     private static final String GET_SURNAME = "Enter the surname";
