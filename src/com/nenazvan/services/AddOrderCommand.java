@@ -3,7 +3,7 @@ package com.nenazvan.services;
 /**
  * Created by artem on 3/26/16.
  */
-public class AddOrderCommand implements Command {
+public class AddOrderCommand implements ICommand {
     private static final String WITH_A_CAPITAL_LETTER = " with a capital letter";
     private static final String GET_FIRST_NAME = "Enter the first name";
     private static final String GET_SURNAME = "Enter the surname";
@@ -17,11 +17,11 @@ public class AddOrderCommand implements Command {
     private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
 
 
-    private View view;
+    private ConsoleView view;
     private Model model;
     private ConsoleIO consoleIO;
 
-    public AddOrderCommand(View view, Model model, ConsoleIO consoleIO) {
+    public AddOrderCommand(ConsoleView view, Model model, ConsoleIO consoleIO) {
         this.view = view;
         this.model = model;
         this.consoleIO = consoleIO;

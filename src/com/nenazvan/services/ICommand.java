@@ -1,5 +1,5 @@
 package com.nenazvan.services;
 
-public interface Command {
+public interface ICommand {
     void perform();
 }

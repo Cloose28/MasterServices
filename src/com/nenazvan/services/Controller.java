@@ -15,8 +15,7 @@ public class Controller {
     private static final String GET_SURNAME = "Enter the surname";
     private static final String OF_MASTER = " of master";
 
-    /** Variable management console*/
-    private View view;
+  private ConsoleView view = new ConsoleView();
     /** Path to file with orders*/
     private static final String ORDERS_TXT = "orders.txt";
     /** Model store list of orders*/
@@ -24,10 +23,14 @@ public class Controller {
     ConsoleIO consoleIO;
 
     public Controller() {
-        view = new View();
         getDataFromFile(ORDERS_TXT);
-        consoleIO = new ConsoleIO(view);
+      consoleIO = new ConsoleIO(new ConsoleView());
+      new ConsoleView(this::handleMenuItemSelection, model);
     }
+
+  private void handleMenuItemSelection(ICommand command) {
+    command.perform();
+  }
 
     /** Reading the start data*/
     private void getDataFromFile(String fileName) {
