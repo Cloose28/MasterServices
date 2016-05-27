@@ -1,8 +1,5 @@
 package com.nenazvan.services;
 
-/**
- * Created by artem on 3/26/16.
- */
 public class ConsoleIO {
     private static final String GET_PHONE_NUMBER = "Enter the phone number (8980...)";
     private static final String GET_COST = "Enter the cost of product (positive number)";

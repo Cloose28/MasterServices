@@ -6,10 +6,6 @@ import java.util.Scanner;
  * Class interacts with the user
  */
 public class ConsoleView {
-  /**
-   * Callback to perform some command from console
-   */
-  private MenuCallBack menuCallBack;
   private Model model;
 
   /**
@@ -22,13 +18,14 @@ public class ConsoleView {
 
   public ConsoleView(MenuCallBack menuCallBack, Model model) {
     this.model = model;
-    this.menuCallBack = menuCallBack;
     Thread consoleViewThread = new Thread() {
       @Override
       public void run() {
         showMainMenu();
         while (true) {
-          menuCallBack.menuSelected(getUserSelection());
+          ICommand userSelection = getUserSelection();
+          if (userSelection == null) continue;
+          menuCallBack.menuSelected(userSelection);
         }
       }
     };
@@ -40,6 +37,8 @@ public class ConsoleView {
     switch (choice) {
       case "1":
         return new AddOrderCommand(this, model, new ConsoleIO(this));
+      case "2":
+        return new DeleteOrderCommand(this, model);
       default:
         printErrorMessage("You have entered an invalid number! Please re-enter your choice");
     }

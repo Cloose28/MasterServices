@@ -1,8 +1,5 @@
 package com.nenazvan.services;
 
-/**
- * Created by artem on 3/26/16.
- */
 public class AddOrderCommand implements ICommand {
     private static final String WITH_A_CAPITAL_LETTER = " with a capital letter";
     private static final String GET_FIRST_NAME = "Enter the first name";
@@ -17,9 +14,9 @@ public class AddOrderCommand implements ICommand {
     private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
 
 
-    private ConsoleView view;
-    private Model model;
-    private ConsoleIO consoleIO;
+    private final ConsoleView view;
+    private final Model model;
+    private final ConsoleIO consoleIO;
 
     public AddOrderCommand(ConsoleView view, Model model, ConsoleIO consoleIO) {
         this.view = view;
