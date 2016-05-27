@@ -111,7 +111,7 @@ public class Controller {
 //                    getOrdersOfMaster();
 //                    break;
 //                case ACTUAL_ORDERS:
-//                    model.getOrderList().stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
+//                  model.getOrderList().stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
 //                    break;
 //                case EXPIRED_ORDERS:
 //                    getExpiredOrders();
