@@ -32,6 +32,7 @@ public class ConsoleView {
     consoleViewThread.start();
   }
 
+  /** The method gets user command from console*/
   private ICommand getUserSelection() {
     String choice = getChoice("Please, choice any options: ");
     switch (choice) {

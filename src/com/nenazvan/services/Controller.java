@@ -1,19 +1,12 @@
 package com.nenazvan.services;
 
-import com.nenazvan.enums.MainMenu;
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /** Class connecting view and model*/
 public class Controller {
-    private static final String WITH_A_CAPITAL_LETTER = " with a capital letter";
     private static final String YYYY_MM_DD_HH_MM = "(yyyy-MM-dd HH:mm)";
-    private static final String GET_PATRONYMIC = "Enter the patronymic";
-    private static final String GET_FIRST_NAME = "Enter the first name";
-    private static final String GET_SURNAME = "Enter the surname";
-    private static final String OF_MASTER = " of master";
 
   private ConsoleView view = new ConsoleView();
     /** Path to file with orders*/
@@ -107,28 +100,28 @@ public class Controller {
         boolean flag = true;
         while (flag) {
             view.showMainMenu();
-            switch (getInstance()) {
-                case ADD_ORDER:
-                    addNewOrder();
-                    break;
-                case DELETE_ORDER:
-                    deleteOrder();
-                    break;
-                case ORDERS_OF_MASTER:
-                    getOrdersOfMaster();
-                    break;
-                case ACTUAL_ORDERS:
-                    model.getOrderList().stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
-                    break;
-                case EXPIRED_ORDERS:
-                    getExpiredOrders();
-                    break;
-                case EXIT:
-                    flag = closeAndSaveProgram();
-                    break;
-                default:
-                    view.printErrorMessage("You have entered an invalid number! Please re-enter your choice");
-            }
+//            switch (getInstance()) {
+//                case ADD_ORDER:
+//                    addNewOrder();
+//                    break;
+//                case DELETE_ORDER:
+//                    deleteOrder();
+//                    break;
+//                case ORDERS_OF_MASTER:
+//                    getOrdersOfMaster();
+//                    break;
+//                case ACTUAL_ORDERS:
+//                    model.getOrderList().stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
+//                    break;
+//                case EXPIRED_ORDERS:
+//                    getExpiredOrders();
+//                    break;
+//                case EXIT:
+//                    flag = closeAndSaveProgram();
+//                    break;
+//                default:
+//                    view.printErrorMessage("You have entered an invalid number! Please re-enter your choice");
+//            }
         }
     }
 
@@ -144,24 +137,7 @@ public class Controller {
 
     /** Method searches for all orders specified by the master for a certain period*/
     private void getOrdersOfMaster() {
-        String masterName = getMasterName();
-        LocalDateTime begin = Order.getDateFromText(consoleIO.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
-        LocalDateTime end = Order.getDateFromText(consoleIO.getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
-        model.getOrderList().stream()
-                .filter((order -> order.getMasterName().equals(masterName)))
-                .filter(order -> order.getOrderDate().isAfter(begin))
-                .filter(order -> order.getEstimatedDate().isBefore(end))
-                .forEach(order -> view.printOrder(order));
-        view.printMessage("It is all matching masters");
-    }
-
-    /** The method receives the name of the master*/
-    private String getMasterName() {
-        String answer = consoleIO.getCorrectString(GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        answer += " " + consoleIO.getCorrectString(GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        answer += " " + consoleIO.getCorrectString(GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
-        return answer;
-    }
+        }
 
     /** The method for saving data and closing the form*/
     private boolean closeAndSaveProgram() {
@@ -206,17 +182,6 @@ public class Controller {
 
     /** Method for the removal of the orders entered at number*/
     private void deleteOrder() {
-    }
-
-    /** The method converts the number to enum*/
-    private MainMenu getInstance() {
-        int choiceInt;
-        try {
-            choiceInt = Integer.parseInt(view.getChoice("Please, choice any options: ")) - 1;
-        } catch (Exception e) {
-            choiceInt = -1;
-        }
-        return MainMenu.getInstance(choiceInt);
     }
 
     /** Method creates a new order through the user*/
