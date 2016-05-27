@@ -1,16 +1,13 @@
 package com.nenazvan.services;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /** Class connecting view and model*/
 public class Controller {
-    private static final String YYYY_MM_DD_HH_MM = "(yyyy-MM-dd HH:mm)";
-
   private ConsoleView view = new ConsoleView();
-    /** Path to file with orders*/
-    private static final String ORDERS_TXT = "orders.txt";
+  /** Path to file with orders*/
+  private static final String ORDERS_TXT = "orders.txt";
     /** Model store list of orders*/
     Model model = new Model();
     ConsoleIO consoleIO;
@@ -94,99 +91,4 @@ public class Controller {
     private boolean checkCountParameters(int length) {
         return length == Order.COUNT_ARGUMENTS_WITH_ORGANIZATION || length == Order.COUNT_ARGUMENTS_WITHOUT_ORGANIZATION;
     }
-
-    /** The method of displaying the menu and command processing*/
-    public void startMenu() {
-        boolean flag = true;
-        while (flag) {
-            view.showMainMenu();
-//            switch (getInstance()) {
-//                case ADD_ORDER:
-//                    addNewOrder();
-//                    break;
-//                case DELETE_ORDER:
-//                    deleteOrder();
-//                    break;
-//                case ORDERS_OF_MASTER:
-//                    getOrdersOfMaster();
-//                    break;
-//                case ACTUAL_ORDERS:
-//                  model.getOrderList().stream().filter(Order::isAction).forEach(order -> view.printOrder(order));
-//                    break;
-//                case EXPIRED_ORDERS:
-//                    getExpiredOrders();
-//                    break;
-//                case EXIT:
-//                    flag = closeAndSaveProgram();
-//                    break;
-//                default:
-//                    view.printErrorMessage("You have entered an invalid number! Please re-enter your choice");
-//            }
-        }
-    }
-
-    /** Method get all orders that have been expired for the specified time period*/
-    private void getExpiredOrders() {
-        LocalDateTime begin = Order.getDateFromText(consoleIO.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
-        model.getOrderList().stream()
-                .filter(order -> order.getEstimatedDate().isBefore(begin))
-                .filter(Order::isAction)
-                .forEach(order -> view.printOrder(order));
-        view.printMessage("It is all matching orders");
-    }
-
-    /** Method searches for all orders specified by the master for a certain period*/
-    private void getOrdersOfMaster() {
-        }
-
-    /** The method for saving data and closing the form*/
-    private boolean closeAndSaveProgram() {
-        try {
-            saveData();
-        } catch (IOException e) {
-            view.printErrorMessage("Error saving data to a file");
-        }
-        view.closeConsole();
-        return false;
-    }
-
-    /** The method saves a list of orders*/
-    private void saveData() throws IOException {
-        BufferedWriter out = new BufferedWriter(new FileWriter(ORDERS_TXT));
-        for (Order order : model.getOrderList()) {
-            saveOrderInFile(out, order);
-        }
-        out.close();
-    }
-
-    /** Method to save the order in the file*/
-    private void saveOrderInFile(BufferedWriter out, Order order) throws IOException {
-        out.write(boolToString(order.isOrganization()) + " ");
-        out.write(order.getCustomerName() + " ");
-        out.write(order.getOrderDate().toString().replace("T", " ") + " ");
-        out.write(order.getEstimatedDate().toString().replace("T", " ") + " ");
-        out.write(order.getProductName() + " ");
-        out.write(order.getCost() + " ");
-        out.write(order.getPhoneNumber() + " ");
-        out.write(order.getMasterName() + " ");
-        out.write(boolToString(order.isMake()) + " ");
-        out.write(boolToString(order.isRepair()) + " ");
-        out.write(boolToString(order.isDuplicate()) + " ");
-        out.write(boolToString(order.isSearchForDefects()) + "\n");
-    }
-
-    /** Method that translates bool to a string*/
-    private String boolToString(boolean bool) {
-        return bool ? "1" : "0";
-    }
-
-    /** Method for the removal of the orders entered at number*/
-    private void deleteOrder() {
-    }
-
-    /** Method creates a new order through the user*/
-    private void addNewOrder() {
-    }
-
-
 }

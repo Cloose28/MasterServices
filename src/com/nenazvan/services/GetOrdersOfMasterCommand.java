@@ -2,7 +2,8 @@ package com.nenazvan.services;
 
 import java.time.LocalDateTime;
 
-public class getOrdersOfMasterCommand implements ICommand {
+/** Searches for all orders specified by the master for a certain period*/
+public class GetOrdersOfMasterCommand implements ICommand {
   private final ConsoleView view;
   private final Model model;
   private final ConsoleIO consoleIO;
@@ -15,7 +16,7 @@ public class getOrdersOfMasterCommand implements ICommand {
   private static final String GET_SURNAME = "Enter the surname";
   private static final String OF_MASTER = " of master";
 
-  public getOrdersOfMasterCommand(ConsoleView view, Model model, ConsoleIO consoleIO) {
+  public GetOrdersOfMasterCommand(ConsoleView view, Model model, ConsoleIO consoleIO) {
     this.view = view;
     this.model = model;
     this.consoleIO = consoleIO;

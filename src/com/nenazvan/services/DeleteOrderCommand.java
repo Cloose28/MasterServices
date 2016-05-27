@@ -1,5 +1,6 @@
 package com.nenazvan.services;
 
+/** For the removal of the orders entered at number*/
 public class DeleteOrderCommand implements ICommand {
   private final Model model;
   private final ConsoleView view;
