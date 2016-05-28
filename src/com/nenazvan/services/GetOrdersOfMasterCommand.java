@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class GetOrdersOfMasterCommand implements ICommand {
   private final ConsoleView view;
   private final Model model;
-  private final ConsoleIO consoleIO;
+  private final ConsoleIODataForModel consoleIODataForModel;
 
 
   private static final String WITH_A_CAPITAL_LETTER = " with a capital letter";
@@ -16,17 +16,17 @@ public class GetOrdersOfMasterCommand implements ICommand {
   private static final String GET_SURNAME = "Enter the surname";
   private static final String OF_MASTER = " of master";
 
-  public GetOrdersOfMasterCommand(ConsoleView view, Model model, ConsoleIO consoleIO) {
+  public GetOrdersOfMasterCommand(ConsoleView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
     this.view = view;
     this.model = model;
-    this.consoleIO = consoleIO;
+    this.consoleIODataForModel = consoleIODataForModel;
   }
 
   @Override
   public void perform() {
     String masterName = getMasterName();
-    LocalDateTime begin = Order.getDateFromText(consoleIO.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
-    LocalDateTime end = Order.getDateFromText(consoleIO.getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
+    LocalDateTime begin = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
+    LocalDateTime end = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
     model.getOrderList().stream()
             .filter((order -> order.getMasterName().equals(masterName)))
             .filter(order -> order.getOrderDate().isAfter(begin))
@@ -36,9 +36,9 @@ public class GetOrdersOfMasterCommand implements ICommand {
   }
   /** The method receives the name of the master*/
   private String getMasterName() {
-    String answer = consoleIO.getCorrectString(GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
-    answer += " " + consoleIO.getCorrectString(GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
-    answer += " " + consoleIO.getCorrectString(GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
+    String answer = consoleIODataForModel.getCorrectString(GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
+    answer += " " + consoleIODataForModel.getCorrectString(GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER);
+    answer += " " + consoleIODataForModel.getCorrectString(GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
     return answer;
   }
 }

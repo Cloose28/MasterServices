@@ -1,13 +1,13 @@
 package com.nenazvan.services;
 
-public class ConsoleIO {
+public class ConsoleIODataForModel {
     private static final String GET_PHONE_NUMBER = "Enter the phone number (8980...)";
     private static final String GET_COST = "Enter the cost of product (positive number)";
     private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
 
     private ConsoleView view;
 
-    public ConsoleIO(ConsoleView view) {
+    public ConsoleIODataForModel(ConsoleView view) {
         this.view = view;
     }
 

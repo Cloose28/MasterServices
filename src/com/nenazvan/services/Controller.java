@@ -10,14 +10,16 @@ public class Controller {
   private static final String ORDERS_TXT = "orders.txt";
     /** Model store list of orders*/
     Model model = new Model();
-    ConsoleIO consoleIO;
 
     public Controller() {
       getDataFromFile(ORDERS_TXT);
-      consoleIO = new ConsoleIO(new ConsoleView());
-      new ConsoleView(this::handleMenuItemSelection, model);
     }
 
+  public void statrtConsoleApplication() {
+    new ConsoleView(this::handleMenuItemSelection, model);
+  }
+
+  /** For perform command from user*/
   private void handleMenuItemSelection(ICommand command) {
     command.perform();
   }

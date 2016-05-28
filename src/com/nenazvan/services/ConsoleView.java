@@ -37,15 +37,15 @@ public class ConsoleView {
     String choice = getChoice("Please, choice any options: ");
     switch (choice) {
       case "1":
-        return new AddOrderCommand(this, model, new ConsoleIO(this));
+        return new AddOrderCommand(this, model, new ConsoleIODataForModel(this));
       case "2":
         return new DeleteOrderCommand(this, model);
       case "3":
-        return new GetOrdersOfMasterCommand(this, model, new ConsoleIO(this));
+        return new GetOrdersOfMasterCommand(this, model, new ConsoleIODataForModel(this));
       case "4":
         return new GetActualOrdersCommand(this, model);
       case "5":
-        return new GetExpiredOrdersCommand(this, model, new ConsoleIO(this));
+        return new GetExpiredOrdersCommand(this, model, new ConsoleIODataForModel(this));
       case "6":
         return new SaveAndCloseProgramCommand(this, model);
       default:

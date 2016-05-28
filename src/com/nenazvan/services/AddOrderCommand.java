@@ -19,34 +19,34 @@ public class AddOrderCommand implements ICommand {
 
   private final ConsoleView view;
   private final Model model;
-  private final ConsoleIO consoleIO;
+  private final ConsoleIODataForModel consoleIODataForModel;
 
-  public AddOrderCommand(ConsoleView view, Model model, ConsoleIO consoleIO) {
+  public AddOrderCommand(ConsoleView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
     this.view = view;
     this.model = model;
-    this.consoleIO = consoleIO;
+    this.consoleIODataForModel = consoleIODataForModel;
   }
 
   @Override
   public void perform() {
     int count = -1;
     String[] result;
-    String answer = consoleIO.getAnswerOnBoolean(view);
+    String answer = consoleIODataForModel.getAnswerOnBoolean(view);
     if (answer.equals("1")) {
       result = new String[Order.COUNT_ARGUMENTS_WITH_ORGANIZATION];
-      count = consoleIO.addAnswerToResult(count, result, answer);
+      count = consoleIODataForModel.addAnswerToResult(count, result, answer);
       count = getOrganizationName(count, result, GET_NAME_ORGANIZATIONS + WITH_A_CAPITAL_LETTER);
     } else {
       result = new String[Order.COUNT_ARGUMENTS_WITHOUT_ORGANIZATION];
-      count = consoleIO.addAnswerToResult(count, result, answer);
+      count = consoleIODataForModel.addAnswerToResult(count, result, answer);
       count = getName(count, result, GET_FIRST_NAME + OF_YOU + WITH_A_CAPITAL_LETTER,
               GET_SURNAME + OF_YOU + WITH_A_CAPITAL_LETTER, GET_PATRONYMIC +
                       OF_YOU + WITH_A_CAPITAL_LETTER);
     }
     count = getInfoAboutData(count, result, GET_DATE + " of order", GET_DATE + " of estimate");
     count = getProductName(count, result);
-    count = consoleIO.getCost(count, result);
-    count = consoleIO.getPhoneNumber(count, result);
+    count = consoleIODataForModel.getCost(count, result);
+    count = consoleIODataForModel.getPhoneNumber(count, result);
     count = getName(count, result, GET_FIRST_NAME + OF_MASTER + WITH_A_CAPITAL_LETTER,
             GET_SURNAME + OF_MASTER + WITH_A_CAPITAL_LETTER,
             GET_PATRONYMIC + OF_MASTER + WITH_A_CAPITAL_LETTER);
@@ -64,9 +64,9 @@ public class AddOrderCommand implements ICommand {
    * The method receives the correct value date
    */
   private int getCorrectData(int count, String[] result, String question) {
-    String[] split = consoleIO.getCorrectDate(question).split("\\s+");
-    count = consoleIO.addAnswerToResult(count, result, split[0]);
-    count = consoleIO.addAnswerToResult(count, result, split[1]);
+    String[] split = consoleIODataForModel.getCorrectDate(question).split("\\s+");
+    count = consoleIODataForModel.addAnswerToResult(count, result, split[0]);
+    count = consoleIODataForModel.addAnswerToResult(count, result, split[1]);
     return count;
   }
 
@@ -109,10 +109,10 @@ public class AddOrderCommand implements ICommand {
    * The method receives values of type bool from the user
    */
   private void getInfoAboutProduct(int count, String[] result, String question, String question2, String question3, String question4) {
-    count = consoleIO.getCorrectAnswerBool(count, result, question);
-    count = consoleIO.getCorrectAnswerBool(count, result, question2);
-    count = consoleIO.getCorrectAnswerBool(count, result, question3);
-    consoleIO.getCorrectAnswerBool(count, result, question4);
+    count = consoleIODataForModel.getCorrectAnswerBool(count, result, question);
+    count = consoleIODataForModel.getCorrectAnswerBool(count, result, question2);
+    count = consoleIODataForModel.getCorrectAnswerBool(count, result, question3);
+    consoleIODataForModel.getCorrectAnswerBool(count, result, question4);
   }
 
   /**
@@ -128,7 +128,7 @@ public class AddOrderCommand implements ICommand {
    * The method receives the correct word
    */
   private int getCorrectAnswerString(int count, String[] result, String question) {
-    count = consoleIO.addAnswerToResult(count, result, consoleIO.getCorrectString(question));
+    count = consoleIODataForModel.addAnswerToResult(count, result, consoleIODataForModel.getCorrectString(question));
     return count;
   }
 }

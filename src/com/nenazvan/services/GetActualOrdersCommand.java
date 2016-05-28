@@ -1,5 +1,6 @@
 package com.nenazvan.services;
 
+/** Class returns the actual orders*/
 public class GetActualOrdersCommand implements ICommand {
   private final ConsoleView view;
   private final Model model;
