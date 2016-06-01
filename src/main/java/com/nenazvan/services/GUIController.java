@@ -12,11 +12,14 @@ public class GUIController {
   private Model model;
   /** Path to file with orders*/
   private static final String ORDERS_TXT = "src/main/resources/orders.txt";
+  /** For print message to user*/
+  private GUIView view;
 
   @FXML
   private void initialize() {
     model = new Model();
-    new InitialDataToModel(model, new GUIView(textArea)).getDataFromFile(ORDERS_TXT);
+    view = new GUIView(textArea);
+    new InitialDataToModel(model, view).getDataFromFile(ORDERS_TXT);
   }
 
   private void showInformationDialog(String headerText, String message) {
@@ -29,7 +32,7 @@ public class GUIController {
   }
 
   public void addOrder(ActionEvent actionEvent) {
-    System.out.println("addOrder");
+
   }
 
   public void deleteOrder(ActionEvent actionEvent) {
@@ -49,7 +52,6 @@ public class GUIController {
   }
 
   public void saveAndExitProgram(ActionEvent actionEvent) {
-    new SaveAndCloseProgramCommand(new ConsoleView(), model).perform();
-    System.exit(0);
+    new SaveModelDataCommand(view, model).perform();
   }
 }

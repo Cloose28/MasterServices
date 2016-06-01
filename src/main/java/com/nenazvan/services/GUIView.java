@@ -11,11 +11,11 @@ public class GUIView implements IView {
 
   @Override
   public void printMessage(String message) {
-    textArea.setText(textArea.getText() + "\n" + message);
+    textArea.appendText("\n" + message);
   }
 
   @Override
   public void printErrorMessage(String errorMessage) {
-    textArea.setText(textArea.getText() + "\n" + errorMessage);
+    textArea.appendText("\n" + errorMessage);
   }
 }

@@ -26,6 +26,7 @@ public class ConsoleView implements IView {
           ICommand userSelection = getUserSelection();
           if (userSelection == null) continue;
           menuCallBack.menuSelected(userSelection);
+          if (userSelection instanceof SaveModelDataCommand) break;
         }
       }
     };
@@ -47,7 +48,7 @@ public class ConsoleView implements IView {
       case "5":
         return new GetExpiredOrdersCommand(this, model, new ConsoleIODataForModel(this));
       case "6":
-        return new SaveAndCloseProgramCommand(this, model);
+        return new SaveModelDataCommand(this, model);
       default:
         printErrorMessage("You have entered an invalid number! Please re-enter your choice");
     }

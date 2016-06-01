@@ -5,13 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /** For saving data and closing the form*/
-public class SaveAndCloseProgramCommand implements ICommand {
+public class SaveModelDataCommand implements ICommand {
   /** Path to file with orders*/
-  private static final String ORDERS_TXT = "orders.txt";
+  private static final String ORDERS_TXT = "src/main/resources/orders.txt";
   private final Model model;
-  private final ConsoleView view;
+  private final IView view;
 
-  public SaveAndCloseProgramCommand(ConsoleView view, Model model) {
+  public SaveModelDataCommand(IView view, Model model) {
     this.view = view;
     this.model = model;
   }
@@ -20,6 +20,9 @@ public class SaveAndCloseProgramCommand implements ICommand {
   public void perform() {
     try {
       BufferedWriter out = new BufferedWriter(new FileWriter(ORDERS_TXT));
+      if (model.getOrderList().size() == 0) {
+        view.printMessage("Nothing to save, list of orders is null");
+      }
       for (Order order : model.getOrderList()) {
         saveOrderInFile(out, order);
       }
@@ -28,7 +31,11 @@ public class SaveAndCloseProgramCommand implements ICommand {
       view.printErrorMessage("Error saving data to a file");
     }
     view.printMessage("Bye, Bye!");
-    System.exit(0);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
   /** Method to save the order in the file*/
   private void saveOrderInFile(BufferedWriter out, Order order) throws IOException {

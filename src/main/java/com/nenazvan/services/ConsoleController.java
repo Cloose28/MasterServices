@@ -18,7 +18,11 @@ public class ConsoleController implements Launcher {
 
   /** For perform command from user*/
   private void handleMenuItemSelection(ICommand command) {
-    command.perform();
+    try {
+      command.perform();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
 }
