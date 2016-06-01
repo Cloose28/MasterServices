@@ -15,7 +15,7 @@ public class GUIApplication extends Application implements Launcher {
     FXMLLoader loader = new FXMLLoader();
     Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
     primaryStage.setTitle("MasterService");
-    primaryStage.getIcons().add(new Image("file:resources/image/icon.jpg"));
+    primaryStage.getIcons().add(new Image("/image/icon.jpg"));
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();

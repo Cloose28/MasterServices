@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Class interacts with the user
  */
-public class ConsoleView {
+public class ConsoleView implements IView {
   private Model model;
 
   /**

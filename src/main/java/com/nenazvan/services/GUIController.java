@@ -1,10 +1,23 @@
 package com.nenazvan.services;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 
 public class GUIController {
-  private final Model model = new Model();
+  /**Will print logs of program*/
+  public TextArea textArea;
+  /** Model store list of orders*/
+  private Model model;
+  /** Path to file with orders*/
+  private static final String ORDERS_TXT = "src/main/resources/orders.txt";
+
+  @FXML
+  private void initialize() {
+    model = new Model();
+    new InitialDataToModel(model, new GUIView(textArea)).getDataFromFile(ORDERS_TXT);
+  }
 
   private void showInformationDialog(String headerText, String message) {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -32,6 +32,6 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextArea layoutY="29.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextArea fx:id="textArea" layoutY="29.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </Pane>
