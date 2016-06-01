@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 /** Class for get all orders that have been expired for the specified time period*/
 public class GetExpiredOrdersCommand implements ICommand {
   private static final String YYYY_MM_DD_HH_MM = "(yyyy-MM-dd HH:mm)";
-  private final ConsoleView view;
+  private final IView view;
   private final Model model;
   private final ConsoleIODataForModel consoleIODataForModel;
 
-  public GetExpiredOrdersCommand(ConsoleView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
+  public GetExpiredOrdersCommand(IView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
     this.view = view;
     this.model = model;
     this.consoleIODataForModel = consoleIODataForModel;

@@ -65,7 +65,7 @@ public class ConsoleView implements IView {
             "\n 3) Display orders by the master for the period" +
             "\n 4) Display current orders" +
             "\n 5) Display orders expired during the period" +
-            "\n 6) Save and exit");
+            "\n 6) Save orders and exit");
   }
 
   /**
@@ -78,6 +78,7 @@ public class ConsoleView implements IView {
   /**
    * Error message to console
    */
+  @Override
   public void printErrorMessage(String message) {
     System.out.println((char) 27 + "[31m" + message + (char) 27 + "[0m");
   }
@@ -85,6 +86,7 @@ public class ConsoleView implements IView {
   /**
    * Message to console
    */
+  @Override
   public void printMessage(String message) {
     System.out.println((char) 27 + "[32m" + message + (char) 27 + "[0m");
   }
@@ -99,6 +101,7 @@ public class ConsoleView implements IView {
   /**
    * Method asks and receives a response from the user
    */
+  @Override
   public String getChoice(String question) {
     System.out.println((char) 27 + "[32m" + question + (char) 27 + "[0m");
     return console.nextLine();

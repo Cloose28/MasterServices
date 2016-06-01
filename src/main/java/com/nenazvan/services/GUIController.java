@@ -1,8 +1,6 @@
 package com.nenazvan.services;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 
 public class GUIController {
@@ -14,44 +12,38 @@ public class GUIController {
   private static final String ORDERS_TXT = "src/main/resources/orders.txt";
   /** For print message to user*/
   private GUIView view;
+  /** For gets data to model from user*/
+  ConsoleIODataForModel consoleIODataForModel;
 
   @FXML
   private void initialize() {
     model = new Model();
     view = new GUIView(textArea);
+    consoleIODataForModel = new ConsoleIODataForModel(view);
     new InitialDataToModel(model, view).getDataFromFile(ORDERS_TXT);
   }
 
-  private void showInformationDialog(String headerText, String message) {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Information");
-    alert.setHeaderText(headerText);
-    alert.setContentText(message);
-
-    alert.showAndWait();
+  public void addOrder() {
+    new AddOrderCommand(view, model, consoleIODataForModel).perform();
   }
 
-  public void addOrder(ActionEvent actionEvent) {
-
+  public void deleteOrder() {
+    new DeleteOrderCommand(view, model).perform();
   }
 
-  public void deleteOrder(ActionEvent actionEvent) {
-
+  public void getOrderOfMaster() {
+    new GetOrdersOfMasterCommand(view, model, consoleIODataForModel).perform();
   }
 
-  public void getOrderOfMaster(ActionEvent actionEvent) {
-
+  public void getCurrentOrders() {
+    new GetActualOrdersCommand(view, model).perform();
   }
 
-  public void getCurrentOrders(ActionEvent actionEvent) {
-
+  public void getExpiredOrders() {
+    new GetExpiredOrdersCommand(view, model, consoleIODataForModel).perform();
   }
 
-  public void getExpiredOrders(ActionEvent actionEvent) {
-
-  }
-
-  public void saveAndExitProgram(ActionEvent actionEvent) {
+  public void saveAndExitProgram() {
     new SaveModelDataCommand(view, model).perform();
   }
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * Searches for all orders specified by the master for a certain period
  */
 public class GetOrdersOfMasterCommand implements ICommand {
-  private final ConsoleView view;
+  private final IView view;
   private final Model model;
   private final ConsoleIODataForModel consoleIODataForModel;
 
@@ -18,7 +18,7 @@ public class GetOrdersOfMasterCommand implements ICommand {
   private static final String GET_SURNAME = "Enter the surname";
   private static final String OF_MASTER = " of master";
 
-  public GetOrdersOfMasterCommand(ConsoleView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
+  public GetOrdersOfMasterCommand(IView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
     this.view = view;
     this.model = model;
     this.consoleIODataForModel = consoleIODataForModel;

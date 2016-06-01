@@ -31,11 +31,6 @@ public class SaveModelDataCommand implements ICommand {
       view.printErrorMessage("Error saving data to a file");
     }
     view.printMessage("Bye, Bye!");
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
   /** Method to save the order in the file*/
   private void saveOrderInFile(BufferedWriter out, Order order) throws IOException {

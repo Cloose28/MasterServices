@@ -17,7 +17,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#getOrderOfMaster" text="Orders of master" />
                         <MenuItem mnemonicParsing="false" onAction="#getCurrentOrders" text="Current order" />
                         <MenuItem mnemonicParsing="false" onAction="#getExpiredOrders" text="Expired order" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveAndExitProgram" text="Save and exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveAndExitProgram" text="Save orders" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Info">

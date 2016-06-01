@@ -17,11 +17,11 @@ public class AddOrderCommand implements ICommand {
   private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
 
 
-  private final ConsoleView view;
+  private final IView view;
   private final Model model;
   private final ConsoleIODataForModel consoleIODataForModel;
 
-  public AddOrderCommand(ConsoleView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
+  public AddOrderCommand(IView view, Model model, ConsoleIODataForModel consoleIODataForModel) {
     this.view = view;
     this.model = model;
     this.consoleIODataForModel = consoleIODataForModel;

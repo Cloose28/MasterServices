@@ -5,9 +5,9 @@ public class ConsoleIODataForModel {
     private static final String GET_COST = "Enter the cost of product (positive number)";
     private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
 
-    private ConsoleView view;
+    private IView view;
 
-    public ConsoleIODataForModel(ConsoleView view) {
+    public ConsoleIODataForModel(IView view) {
         this.view = view;
     }
 
@@ -34,7 +34,7 @@ public class ConsoleIODataForModel {
     /**
      * The method receives the response in the form of boolean
      */
-    public String getAnswerOnBoolean(ConsoleView view) {
+    public String getAnswerOnBoolean(IView view) {
         String answer;
         do {
             answer = view.getChoice("Do you organization? " + YES_1_OR_0_NO);

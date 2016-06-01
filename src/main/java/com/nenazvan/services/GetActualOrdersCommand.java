@@ -2,10 +2,10 @@ package com.nenazvan.services;
 
 /** Class returns the actual orders*/
 public class GetActualOrdersCommand implements ICommand {
-  private final ConsoleView view;
+  private final IView view;
   private final Model model;
 
-  public GetActualOrdersCommand(ConsoleView view, Model model) {
+  public GetActualOrdersCommand(IView view, Model model) {
     this.view = view;
     this.model = model;
   }

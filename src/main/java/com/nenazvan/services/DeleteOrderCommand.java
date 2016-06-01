@@ -3,19 +3,18 @@ package com.nenazvan.services;
 /** For the removal of the orders entered at number*/
 public class DeleteOrderCommand implements ICommand {
   private final Model model;
-  private final ConsoleView view;
+  private final IView view;
 
-  public DeleteOrderCommand(ConsoleView view, Model model) {
+  public DeleteOrderCommand(IView view, Model model) {
     this.view = view;
     this.model = model;
   }
 
   @Override
   public void perform() {
-    showListOfOrders();
     String result;
     do {
-      result = view.getChoice("Please, select the order number that you want to delete, or \"-1\" to exit");
+      result = view.getChoice(getListOfOrders() + "Please, select the order number that you want to delete, or \"-1\" to exit");
     } while (checkAndExecute(result));
   }
 
@@ -40,11 +39,15 @@ public class DeleteOrderCommand implements ICommand {
     model.removeOrder(number);
   }
 
-  /** Display all orders with numbers*/
-  private void showListOfOrders() {
+  /**
+   * Display all orders with numbers
+   */
+  private String getListOfOrders() {
+    StringBuilder builder = new StringBuilder();
     for (Integer i = 0; i < model.getOrderList().size(); i++) {
-      view.printMessage(i.toString() + ") " + model.getOrderList().get(i).toString());
+      builder.append(i.toString()).append(") ").append(model.getOrderList().get(i).toString()).append("\n");
     }
+    return builder.toString();
   }
 
 }
