@@ -1,5 +1,6 @@
-package com.nenazvan.services;
+package com.nenazvan.services.guiApplication;
 
+import com.nenazvan.services.Launcher;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

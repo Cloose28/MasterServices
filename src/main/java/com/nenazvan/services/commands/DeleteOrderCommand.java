@@ -1,4 +1,7 @@
-package com.nenazvan.services;
+package com.nenazvan.services.commands;
+
+import com.nenazvan.services.IView;
+import com.nenazvan.services.Model;
 
 import java.sql.SQLException;
 

@@ -1,5 +1,7 @@
-package com.nenazvan.services;
+package com.nenazvan.services.guiApplication;
 
+import com.nenazvan.services.IView;
+import com.nenazvan.services.Order;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 

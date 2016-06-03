@@ -105,8 +105,8 @@ public class Order {
                String customerName, String productName, int cost, String phoneNumber, String masterName,
                boolean isAction, boolean isReady, boolean isExerted, boolean isMake, boolean isRepair,
                boolean isDuplicate, boolean isSearchForDefects) {
-    this.orderDate = orderDate.toString();
-    this.estimatedDate = estimatedDate.toString();
+    this.orderDate = orderDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    this.estimatedDate = estimatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     this.isOrganization = isOrganization;
     this.customerName = customerName;
     this.productName = productName;
@@ -136,7 +136,7 @@ public class Order {
     if (getClass() != obj.getClass()) return false;
     if (obj == this) return true;
     Order order = (Order) obj;
-    return this.orderDate.equals(order.getOrderDate()) && this.estimatedDate.equals(order.getEstimatedDate())
+    return this.orderDate.equals(order.getOrderDate().toString()) && this.estimatedDate.equals(order.getEstimatedDate().toString())
             && this.isOrganization == order.isOrganization() && this.customerName.equals(order.getCustomerName())
             && this.productName.equals(order.getProductName()) && this.cost == order.getCost()
             && this.phoneNumber.equals(order.getPhoneNumber()) && this.masterName.equals(order.getMasterName())
@@ -266,13 +266,13 @@ public class Order {
   }
 
   public LocalDateTime getOrderDate() {
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    return LocalDateTime.parse(orderDate, formatter);
+    String parsableDate = orderDate.replace("T", " ");
+    return getLocalDateTime(parsableDate);
   }
 
   public LocalDateTime getEstimatedDate() {
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    return LocalDateTime.parse(estimatedDate, formatter);
+    String parsableDate = estimatedDate.replace("T", " ");
+    return getLocalDateTime(parsableDate);
   }
 
   public boolean isOrganization() {

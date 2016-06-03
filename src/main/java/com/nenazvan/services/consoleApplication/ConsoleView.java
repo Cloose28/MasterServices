@@ -1,4 +1,9 @@
-package com.nenazvan.services;
+package com.nenazvan.services.consoleApplication;
+
+import com.nenazvan.services.IView;
+import com.nenazvan.services.Model;
+import com.nenazvan.services.Order;
+import com.nenazvan.services.commands.*;
 
 import java.util.Scanner;
 

@@ -1,6 +1,10 @@
-package com.nenazvan.services;
+package com.nenazvan.services.guiApplication;
 
 import com.j256.ormlite.dao.DaoManager;
+import com.nenazvan.services.Model;
+import com.nenazvan.services.Order;
+import com.nenazvan.services.commands.*;
+import com.nenazvan.services.consoleApplication.ConsoleIODataForModel;
 import com.nenazvan.services.db.dbHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;

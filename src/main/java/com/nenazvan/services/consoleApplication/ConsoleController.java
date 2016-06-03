@@ -1,6 +1,10 @@
-package com.nenazvan.services;
+package com.nenazvan.services.consoleApplication;
 
 import com.j256.ormlite.dao.DaoManager;
+import com.nenazvan.services.Launcher;
+import com.nenazvan.services.Model;
+import com.nenazvan.services.Order;
+import com.nenazvan.services.commands.ICommand;
 import com.nenazvan.services.db.dbHelper;
 
 import java.sql.SQLException;

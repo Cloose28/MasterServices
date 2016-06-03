@@ -1,5 +1,8 @@
 package com.nenazvan.services;
 
+import com.nenazvan.services.consoleApplication.ConsoleController;
+import com.nenazvan.services.guiApplication.GUIApplication;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;

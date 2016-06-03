@@ -1,4 +1,7 @@
-package com.nenazvan.services;
+package com.nenazvan.services.consoleApplication;
+
+import com.nenazvan.services.IView;
+import com.nenazvan.services.Order;
 
 public class ConsoleIODataForModel {
     private static final String GET_PHONE_NUMBER = "Enter the phone number (8980...)";
