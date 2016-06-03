@@ -35,6 +35,7 @@ public class GetOrdersOfMasterCommand implements ICommand {
     String masterName = getMasterName();
     LocalDateTime begin = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
     LocalDateTime end = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
+    view.printMessage("");
     try {
       model.getOrderList().stream()
               .filter((order -> order.getMasterName().equals(masterName)))

@@ -15,7 +15,10 @@ public class OrderTests {
 
     LocalDateTime orderDate = order.getOrderDate();
 
-    assertEquals(orderDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")),
-            dateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")));
+    assertEquals(getFormattedDate(orderDate), getFormattedDate(dateTime));
+  }
+
+  private String getFormattedDate(LocalDateTime date) {
+    return date.format((DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")));
   }
 }

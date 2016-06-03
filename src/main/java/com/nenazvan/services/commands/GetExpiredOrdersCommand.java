@@ -23,6 +23,7 @@ public class GetExpiredOrdersCommand implements ICommand {
   @Override
   public void perform() {
     LocalDateTime begin = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
+    view.printMessage("");
     try {
       model.getOrderList().stream()
               .filter(order -> order.getEstimatedDate().isBefore(begin))

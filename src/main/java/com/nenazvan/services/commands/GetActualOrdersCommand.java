@@ -18,6 +18,7 @@ public class GetActualOrdersCommand implements ICommand {
 
   @Override
   public void perform() {
+    view.printMessage("");
     try {
       model.getOrderList().stream().filter(Order::isAction).forEach(view::printOrder);
     } catch (SQLException e) {
