@@ -1,5 +1,6 @@
 package com.nenazvan.services;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /** Class for get all orders that have been expired for the specified time period*/
@@ -17,10 +18,14 @@ public class GetExpiredOrdersCommand implements ICommand {
   @Override
   public void perform() {
     LocalDateTime begin = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
-    model.getOrderList().stream()
-            .filter(order -> order.getEstimatedDate().isBefore(begin))
-            .filter(Order::isAction)
-            .forEach(view::printOrder);
+    try {
+      model.getOrderList().stream()
+              .filter(order -> order.getEstimatedDate().isBefore(begin))
+              .filter(Order::isAction)
+              .forEach(view::printOrder);
+    } catch (SQLException e) {
+      view.printErrorMessage("The database connection is not successfully, check properties of connection");
+    }
     view.printMessage("It is all matching orders");
   }
 }

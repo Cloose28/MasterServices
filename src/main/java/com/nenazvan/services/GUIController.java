@@ -1,15 +1,20 @@
 package com.nenazvan.services;
 
+import com.j256.ormlite.dao.DaoManager;
+import com.nenazvan.services.db.dbHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+import java.sql.SQLException;
+
+/**
+ * Class operate with GUI application
+ */
 public class GUIController {
   /**Will print logs of program*/
   public TextArea textArea;
   /** Model store list of orders*/
   private Model model;
-  /** Path to file with orders*/
-  private static final String ORDERS_TXT = "src/main/resources/orders.txt";
   /** For print message to user*/
   private GUIView view;
   /** For gets data to model from user*/
@@ -17,10 +22,23 @@ public class GUIController {
 
   @FXML
   private void initialize() {
-    model = new Model();
     view = new GUIView(textArea);
+    model = getModel();
     consoleIODataForModel = new ConsoleIODataForModel(view);
-    new InitialDataToModel(model, view).getDataFromFile(ORDERS_TXT);
+  }
+
+  /**
+   * Trying to create a model
+   * @return message of exception if connection was not found, the program will be stopped
+   */
+  private Model getModel() {
+    try {
+      return new Model(DaoManager.createDao(new dbHelper().getConnectionSource(), Order.class));
+    } catch (SQLException exception) {
+      view.printErrorMessage("The database connection is not successfully, check properties of connection");
+      System.exit(0);
+    }
+    return null;
   }
 
   public void addOrder() {
@@ -41,9 +59,5 @@ public class GUIController {
 
   public void getExpiredOrders() {
     new GetExpiredOrdersCommand(view, model, consoleIODataForModel).perform();
-  }
-
-  public void saveAndExitProgram() {
-    new SaveModelDataCommand(view, model).perform();
   }
 }

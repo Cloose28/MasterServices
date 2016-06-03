@@ -1,5 +1,7 @@
 package com.nenazvan.services;
 
+import java.sql.SQLException;
+
 /** Class returns the actual orders*/
 public class GetActualOrdersCommand implements ICommand {
   private final IView view;
@@ -12,6 +14,10 @@ public class GetActualOrdersCommand implements ICommand {
 
   @Override
   public void perform() {
-    model.getOrderList().stream().filter(Order::isAction).forEach(view::printOrder);
+    try {
+      model.getOrderList().stream().filter(Order::isAction).forEach(view::printOrder);
+    } catch (SQLException e) {
+      view.printErrorMessage("The database connection is not successfully, check properties of connection");
+    }
   }
 }

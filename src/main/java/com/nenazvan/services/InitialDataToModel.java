@@ -2,6 +2,7 @@ package com.nenazvan.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class InitialDataToModel {
@@ -19,7 +20,11 @@ public class InitialDataToModel {
     try {
       Scanner scanner = new Scanner(new File(fileName));
       while (scanner.hasNextLine()) {
-        model.addOrder(createObjectFromString(scanner.nextLine()));
+        try {
+          model.addOrder(createObjectFromString(scanner.nextLine()));
+        } catch (SQLException e) {
+          view.printErrorMessage("The database connection is not successfully, check properties of connection");
+        }
       }
       view.printMessage("The initial data is successfully received!");
       scanner.close();

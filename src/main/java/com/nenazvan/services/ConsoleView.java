@@ -26,7 +26,6 @@ public class ConsoleView implements IView {
           ICommand userSelection = getUserSelection();
           if (userSelection == null) continue;
           menuCallBack.menuSelected(userSelection);
-          if (userSelection instanceof SaveModelDataCommand) break;
         }
       }
     };
@@ -48,11 +47,11 @@ public class ConsoleView implements IView {
       case "5":
         return new GetExpiredOrdersCommand(this, model, new ConsoleIODataForModel(this));
       case "6":
-        return new SaveModelDataCommand(this, model);
+        System.exit(0);
       default:
         printErrorMessage("You have entered an invalid number! Please re-enter your choice");
     }
-    return  null;
+    return null;
   }
 
   /**
@@ -65,7 +64,7 @@ public class ConsoleView implements IView {
             "\n 3) Display orders by the master for the period" +
             "\n 4) Display current orders" +
             "\n 5) Display orders expired during the period" +
-            "\n 6) Save orders and exit");
+            "\n 6) Exit");
   }
 
   /**

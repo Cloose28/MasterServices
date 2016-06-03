@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
+
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nenazvan.services.GUIController">
     <children>
         <MenuBar layoutX="210.0">
@@ -13,7 +16,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#getOrderOfMaster" text="Orders of master" />
                         <MenuItem mnemonicParsing="false" onAction="#getCurrentOrders" text="Current order" />
                         <MenuItem mnemonicParsing="false" onAction="#getExpiredOrders" text="Expired order" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveAndExitProgram" text="Save orders" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Info">

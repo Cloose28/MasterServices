@@ -1,86 +1,112 @@
 package com.nenazvan.services;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * A class stores and processes all order data
  */
-class Order {
+@DatabaseTable(tableName = "order")
+public class Order {
   public static final int COUNT_ARGUMENTS_WITHOUT_ORGANIZATION = 18;
   public static final int COUNT_ARGUMENTS_WITH_ORGANIZATION = 16;
+  @DatabaseField(generatedId = true, canBeNull = false)
+  private int id = new Random().nextInt();
   /**
    * Date and time of order.
    */
-  private LocalDateTime orderDate;
+  @DatabaseField
+  private String orderDate;
   /**
    * Date and time calculation.
    */
-  private LocalDateTime estimatedDate;
+  @DatabaseField
+  private String estimatedDate;
 
   /**
    * True if the organization
    */
+  @DatabaseField
   private boolean isOrganization;
   /**
    * The full name of the customer
    */
+  @DatabaseField
   private String customerName;
 
   /**
    * The name of the product
    */
+  @DatabaseField
   private String productName;
   /**
    * The cost of order in roubles
    */
+  @DatabaseField
   private int cost;
   /**
    * Phone customer (example 8980..)
    */
+  @DatabaseField
   private String phoneNumber;
   /**
    * The full name of the master
    */
+  @DatabaseField
   private String masterName;
 
   /**
    * True if in action
    */
+  @DatabaseField
   private boolean isAction;
   /**
    * True if is ready
    */
+  @DatabaseField
   private boolean isReady;
   /**
    * True if is exerted
    */
+  @DatabaseField
   private boolean isExerted;
   /**
    * True if the make
    */
+  @DatabaseField
   private boolean isMake;
   /**
    * True if the repair
    */
+  @DatabaseField
   private boolean isRepair;
   /**
    * True if the duplicate
    */
+  @DatabaseField
   private boolean isDuplicate;
   /**
    * True if the search for defects
    */
+  @DatabaseField
   private boolean isSearchForDefects;
+
+  public Order() {
+
+  }
 
   public Order(LocalDateTime orderDate, LocalDateTime estimatedDate, boolean isOrganization,
                String customerName, String productName, int cost, String phoneNumber, String masterName,
                boolean isAction, boolean isReady, boolean isExerted, boolean isMake, boolean isRepair,
                boolean isDuplicate, boolean isSearchForDefects) {
-    this.orderDate = orderDate;
-    this.estimatedDate = estimatedDate;
+    this.orderDate = orderDate.toString();
+    this.estimatedDate = estimatedDate.toString();
     this.isOrganization = isOrganization;
     this.customerName = customerName;
     this.productName = productName;
@@ -240,11 +266,13 @@ class Order {
   }
 
   public LocalDateTime getOrderDate() {
-    return orderDate;
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    return LocalDateTime.parse(orderDate, formatter);
   }
 
   public LocalDateTime getEstimatedDate() {
-    return estimatedDate;
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    return LocalDateTime.parse(estimatedDate, formatter);
   }
 
   public boolean isOrganization() {
@@ -261,6 +289,10 @@ class Order {
 
   public int getCost() {
     return cost;
+  }
+
+  public Integer getId() {
+    return id;
   }
 
   public String getPhoneNumber() {

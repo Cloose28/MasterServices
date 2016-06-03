@@ -1,5 +1,7 @@
 package com.nenazvan.services;
 
+import java.sql.SQLException;
+
 /**
  * Class creates a new order through the user
  */
@@ -119,7 +121,12 @@ public class AddOrderCommand implements ICommand {
    * The method adds the order, if such does not yet have
    */
   private boolean addOrder(Order newOrder) {
-    boolean result = model.addOrder(newOrder);
+    boolean result = false;
+    try {
+      result = model.addOrder(newOrder);
+    } catch (SQLException e) {
+      view.printErrorMessage("Error with database, please check the connection");
+    }
     view.printMessage("The order was successfully added!");
     return result;
   }

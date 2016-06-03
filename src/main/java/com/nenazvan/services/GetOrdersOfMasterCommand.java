@@ -1,5 +1,6 @@
 package com.nenazvan.services;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /**
@@ -29,11 +30,15 @@ public class GetOrdersOfMasterCommand implements ICommand {
     String masterName = getMasterName();
     LocalDateTime begin = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter begin date, format " + YYYY_MM_DD_HH_MM));
     LocalDateTime end = Order.getDateFromText(consoleIODataForModel.getCorrectDate("Enter end date, format " + YYYY_MM_DD_HH_MM));
-    model.getOrderList().stream()
-            .filter((order -> order.getMasterName().equals(masterName)))
-            .filter(order -> order.getOrderDate().isAfter(begin))
-            .filter(order -> order.getEstimatedDate().isBefore(end))
-            .forEach(view::printOrder);
+    try {
+      model.getOrderList().stream()
+              .filter((order -> order.getMasterName().equals(masterName)))
+              .filter(order -> order.getOrderDate().isAfter(begin))
+              .filter(order -> order.getEstimatedDate().isBefore(end))
+              .forEach(view::printOrder);
+    } catch (SQLException e) {
+      view.printErrorMessage("The database connection is not successfully, check properties of connection");
+    }
     view.printMessage("It is all matching masters");
   }
 

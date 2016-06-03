@@ -1,5 +1,7 @@
 package com.nenazvan.services;
 
+import java.sql.SQLException;
+
 /** For the removal of the orders entered at number*/
 public class DeleteOrderCommand implements ICommand {
   private final Model model;
@@ -36,7 +38,11 @@ public class DeleteOrderCommand implements ICommand {
   /** The method removes the order, if the number is not -1*/
   private void executeAction(int number) {
     if (number == -1) return;
-    model.removeOrder(number);
+    try {
+      model.removeOrder(model.getOrderList().get(number).getId());
+    } catch (SQLException e) {
+      view.printErrorMessage("The database connection is not successfully, check properties of connection");
+    }
   }
 
   /**
@@ -44,8 +50,12 @@ public class DeleteOrderCommand implements ICommand {
    */
   private String getListOfOrders() {
     StringBuilder builder = new StringBuilder();
-    for (Integer i = 0; i < model.getOrderList().size(); i++) {
-      builder.append(i.toString()).append(") ").append(model.getOrderList().get(i).toString()).append("\n");
+    try {
+      for (Integer i = 0; i < model.getOrderList().size(); i++) {
+        builder.append(i.toString()).append(") ").append(model.getOrderList().get(i).toString()).append("\n");
+      }
+    } catch (SQLException e) {
+      view.printErrorMessage("The database connection is not successfully, check properties of connection");
     }
     return builder.toString();
   }

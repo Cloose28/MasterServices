@@ -1,14 +1,16 @@
 package com.nenazvan.services;
 
+import com.j256.ormlite.dao.DaoManager;
+import com.nenazvan.services.db.dbHelper;
+
+import java.sql.SQLException;
+
 /** Class connecting view and model*/
 public class ConsoleController implements Launcher {
-  /** Path to file with orders*/
-  private static final String ORDERS_TXT = "src/main/resources/orders.txt";
   /** Model store list of orders*/
-  private  final Model model = new Model();
+  private  final Model model = getModel();
 
   public ConsoleController() {
-    new InitialDataToModel(model, new ConsoleView()).getDataFromFile(ORDERS_TXT);
   }
 
   @Override
@@ -23,6 +25,20 @@ public class ConsoleController implements Launcher {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Trying to create a model
+   * @return message of exception if connection was not found, the program will be stopped
+   */
+  private Model getModel() {
+    try {
+      return new Model(DaoManager.createDao(new dbHelper().getConnectionSource(), Order.class));
+    } catch (SQLException exception) {
+      new ConsoleView().printErrorMessage("The database connection is not successfully, check properties of connection");
+      System.exit(0);
+    }
+    return null;
   }
 
 }
