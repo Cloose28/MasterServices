@@ -23,9 +23,17 @@ public class AddOrderCommand implements ICommand {
   public static final String GET_NAME_ORGANIZATIONS = "Enter the name of the organization";
   private static final String YES_1_OR_0_NO = "1(Yes) or 0(No)";
 
-
+  /**
+   * Variable for output to the screen depending on the species
+   */
   private final IView view;
+  /**
+   * A variable to work with orders
+   */
   private final Model model;
+  /**
+   * Variable to check the data written to the model
+   */
   private final ConsoleIODataForModel consoleIODataForModel;
 
   public AddOrderCommand(IView view, Model model, ConsoleIODataForModel consoleIODataForModel) {

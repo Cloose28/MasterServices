@@ -265,14 +265,18 @@ public class Order {
             '}';
   }
 
+  /**
+   * Getter parse date from string to LocalDateTime
+   */
   public LocalDateTime getOrderDate() {
-    String parsableDate = orderDate.replace("T", " ");
-    return getLocalDateTime(parsableDate);
+    return getLocalDateTime(orderDate);
   }
 
+  /**
+   * Getter parse date from string to LocalDateTime
+   */
   public LocalDateTime getEstimatedDate() {
-    String parsableDate = estimatedDate.replace("T", " ");
-    return getLocalDateTime(parsableDate);
+    return getLocalDateTime(estimatedDate);
   }
 
   public boolean isOrganization() {

@@ -7,7 +7,13 @@ import java.sql.SQLException;
 
 /** For the removal of the orders entered at number*/
 public class DeleteOrderCommand implements ICommand {
+  /**
+   * A variable to work with orders
+   */
   private final Model model;
+  /**
+   * Variable for output to the screen depending on the species
+   */
   private final IView view;
 
   public DeleteOrderCommand(IView view, Model model) {

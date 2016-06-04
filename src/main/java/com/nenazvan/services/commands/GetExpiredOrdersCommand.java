@@ -11,8 +11,17 @@ import java.time.LocalDateTime;
 /** Class for get all orders that have been expired for the specified time period*/
 public class GetExpiredOrdersCommand implements ICommand {
   private static final String YYYY_MM_DD_HH_MM = "(yyyy-MM-dd HH:mm)";
+  /**
+   * Variable for output to the screen depending on the species
+   */
   private final IView view;
+  /**
+   * A variable to work with orders
+   */
   private final Model model;
+  /**
+   * Variable to check the data written to the model
+   */
   private final ConsoleIODataForModel consoleIODataForModel;
 
   public GetExpiredOrdersCommand(IView view, Model model, ConsoleIODataForModel consoleIODataForModel) {

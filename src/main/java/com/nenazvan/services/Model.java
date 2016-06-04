@@ -20,10 +20,6 @@ public class Model {
     return Collections.unmodifiableList(orderDao.queryForAll());
   }
 
-  public int getNumberOfOrders() throws SQLException {
-    return (int) orderDao.countOf();
-  }
-
   public boolean addOrder(Order order) throws SQLException {
     if (!isDistinctOrder(order)) {
       orderDao.create(order);

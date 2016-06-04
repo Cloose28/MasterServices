@@ -12,8 +12,17 @@ import java.time.LocalDateTime;
  * Searches for all orders specified by the master for a certain period
  */
 public class GetOrdersOfMasterCommand implements ICommand {
+  /**
+   * Variable for output to the screen depending on the species
+   */
   private final IView view;
+  /**
+   * A variable to work with orders
+   */
   private final Model model;
+  /**
+   * Variable to check the data written to the model
+   */
   private final ConsoleIODataForModel consoleIODataForModel;
 
 

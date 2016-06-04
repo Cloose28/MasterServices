@@ -8,7 +8,13 @@ import java.sql.SQLException;
 
 /** Class returns the actual orders*/
 public class GetActualOrdersCommand implements ICommand {
+  /**
+   * Variable for output to the screen depending on the species
+   */
   private final IView view;
+  /**
+   * A variable to work with orders
+   */
   private final Model model;
 
   public GetActualOrdersCommand(IView view, Model model) {

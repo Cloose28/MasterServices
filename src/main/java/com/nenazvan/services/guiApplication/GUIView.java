@@ -8,6 +8,9 @@ import javafx.scene.control.TextInputDialog;
 import java.util.Optional;
 
 public class GUIView implements IView {
+  /**
+   * Variable for output logs of program
+   */
   private final TextArea textArea;
 
   public GUIView(TextArea textArea) {
@@ -24,6 +27,9 @@ public class GUIView implements IView {
     textArea.appendText("\n" + errorMessage);
   }
 
+  /**
+   * Receiving data from the user for the model
+   */
   @Override
   public String getChoice(String message) {
     TextInputDialog dialog = new TextInputDialog();
