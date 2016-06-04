@@ -20,13 +20,13 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Info">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About after" />
-                        <MenuItem mnemonicParsing="false" text="About program" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutAfterInformation" text="About after" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutProgramInformation" text="About program" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Description menu" />
+                        <MenuItem mnemonicParsing="false" onAction="#descriptionMenu" text="Description menu" />
                     </items>
                 </Menu>
             </menus>

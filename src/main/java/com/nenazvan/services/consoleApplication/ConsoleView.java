@@ -18,6 +18,9 @@ public class ConsoleView implements IView {
    */
   private final Scanner console = new Scanner(System.in);
 
+  /**
+   * Need for tests
+   */
   public ConsoleView() {
   }
 
@@ -73,13 +76,6 @@ public class ConsoleView implements IView {
   }
 
   /**
-   * Closing at the end of the work
-   */
-  public void closeConsole() {
-    console.close();
-  }
-
-  /**
    * Error message to console
    */
   @Override
@@ -111,6 +107,9 @@ public class ConsoleView implements IView {
     return console.nextLine();
   }
 
+  /**
+   * Method callback commands from user
+   */
   public interface MenuCallBack {
     void menuSelected(ICommand command);
   }

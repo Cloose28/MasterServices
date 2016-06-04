@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Class run gui application
+ */
 public class GUIApplication extends Application implements Launcher {
 
   @Override

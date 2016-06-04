@@ -64,4 +64,16 @@ public class GUIController {
   public void getExpiredOrders() {
     new GetExpiredOrdersCommand(view, model, consoleIODataForModel).perform();
   }
+
+  public void descriptionMenu() {
+    view.printMessage("\n**** For work use menu, there are basic commands to work with the workshop.");
+  }
+
+  public void aboutAfterInformation() {
+    view.printMessage("\n**** Shumanov Artem, Demidov Yaroslavl state university!");
+  }
+
+  public void aboutProgramInformation() {
+    view.printMessage("\n**** Program for order management in your workshop.");
+  }
 }
