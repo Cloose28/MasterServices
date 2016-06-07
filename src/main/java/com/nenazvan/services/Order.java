@@ -1,5 +1,6 @@
 package com.nenazvan.services;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -21,13 +22,13 @@ public class Order {
   /**
    * Date and time of order.
    */
-  @DatabaseField
-  private String orderDate;
+  @DatabaseField(dataType = DataType.SERIALIZABLE)
+  private LocalDateTime orderDate;
   /**
    * Date and time calculation.
    */
-  @DatabaseField
-  private String estimatedDate;
+  @DatabaseField (dataType = DataType.SERIALIZABLE)
+  private LocalDateTime estimatedDate;
 
   /**
    * True if the organization
@@ -105,8 +106,8 @@ public class Order {
                String customerName, String productName, int cost, String phoneNumber, String masterName,
                boolean isAction, boolean isReady, boolean isExerted, boolean isMake, boolean isRepair,
                boolean isDuplicate, boolean isSearchForDefects) {
-    this.orderDate = orderDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-    this.estimatedDate = estimatedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    this.orderDate = orderDate;
+    this.estimatedDate = estimatedDate;
     this.isOrganization = isOrganization;
     this.customerName = customerName;
     this.productName = productName;
@@ -136,7 +137,7 @@ public class Order {
     if (getClass() != obj.getClass()) return false;
     if (obj == this) return true;
     Order order = (Order) obj;
-    return this.orderDate.equals(order.getOrderDate().toString()) && this.estimatedDate.equals(order.getEstimatedDate().toString())
+    return this.orderDate.equals(order.getOrderDate()) && this.estimatedDate.equals(order.getEstimatedDate())
             && this.isOrganization == order.isOrganization() && this.customerName.equals(order.getCustomerName())
             && this.productName.equals(order.getProductName()) && this.cost == order.getCost()
             && this.phoneNumber.equals(order.getPhoneNumber()) && this.masterName.equals(order.getMasterName())
@@ -269,14 +270,14 @@ public class Order {
    * Getter parse date from string to LocalDateTime
    */
   public LocalDateTime getOrderDate() {
-    return getLocalDateTime(orderDate);
+    return orderDate;
   }
 
   /**
    * Getter parse date from string to LocalDateTime
    */
   public LocalDateTime getEstimatedDate() {
-    return getLocalDateTime(estimatedDate);
+    return estimatedDate;
   }
 
   public boolean isOrganization() {

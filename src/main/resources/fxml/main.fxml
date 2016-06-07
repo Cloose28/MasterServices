@@ -5,32 +5,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nenazvan.services.guiApplication.GUIController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nenazvan.services.guiApplication.GUIController">
     <children>
         <MenuBar layoutX="210.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addOrder" text="Add order" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteOrder" text="Delete order" />
-                        <MenuItem mnemonicParsing="false" onAction="#getOrderOfMaster" text="Orders of master" />
-                        <MenuItem mnemonicParsing="false" onAction="#getCurrentOrders" text="Current order" />
-                        <MenuItem mnemonicParsing="false" onAction="#getExpiredOrders" text="Expired order" />
+                        <MenuItem mnemonicParsing="false" onAction="#addOrder" text="Add order"/>
+                        <MenuItem mnemonicParsing="false" onAction="#deleteOrder" text="Delete order"/>
+                        <MenuItem mnemonicParsing="false" onAction="#getOrderOfMaster" text="Orders of master"/>
+                        <MenuItem mnemonicParsing="false" onAction="#getCurrentOrders" text="Current order"/>
+                        <MenuItem mnemonicParsing="false" onAction="#getExpiredOrders" text="Expired order"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Info">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#aboutAfterInformation" text="About after" />
-                        <MenuItem mnemonicParsing="false" onAction="#aboutProgramInformation" text="About program" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutAfterInformation" text="About after"/>
+                        <MenuItem mnemonicParsing="false" onAction="#aboutProgramInformation" text="About program"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#descriptionMenu" text="Description menu" />
+                        <MenuItem mnemonicParsing="false" onAction="#descriptionMenu" text="Description menu"/>
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <TextArea fx:id="textArea" editable="false" layoutX="50.0" layoutY="29.0" prefHeight="300.0" prefWidth="500.0" text="Logs:" />
+        <TextArea fx:id="textArea" editable="false" layoutX="50.0" layoutY="29.0" prefHeight="300.0" prefWidth="500.0"
+                  text="Logs:"/>
     </children>
 </Pane>
